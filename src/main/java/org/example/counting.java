@@ -1,2 +1,5 @@
-package org.example;public class counting {
+package org.example;
+
+public class counting {
+
 }
