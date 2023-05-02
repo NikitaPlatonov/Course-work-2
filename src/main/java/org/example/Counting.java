@@ -15,9 +15,21 @@ public class Counting {
 
     }
     public String maxCategories() {
-        //categories.
-        return "{\n" +
-                "  \"maxCategory\": {\n" +
-                "category" ;
+        int maxSum = Integer.MIN_VALUE;
+        String maxCategory = "";
+        for (Map.Entry<String, Integer> entry : categories.entrySet()) {
+            String category = entry.getKey();
+            int sum = entry.getValue();
+            if (sum > maxSum) {
+                maxSum = sum;
+                maxCategory = category;
+            }
+        }
+        return "{\n"+
+                "\"maxCategory\""+":"+ "{"+"\n"+
+                "\"category\""+":" + "\"" + maxCategory+ "\""+"\n"+
+                "\"sum\"" + ":" + maxSum +"\n"+
+                "}"+"\n"+
+                "}";
     }
 }

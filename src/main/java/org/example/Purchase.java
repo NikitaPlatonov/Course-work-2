@@ -31,11 +31,13 @@ public class Purchase {
         return sum;
     }
     public void saveToTxt(File txt) throws IOException {
-        try(BufferedWriter bufferedWriter = new BufferedWriter(new FileWriter(txt))) {
+        try(BufferedWriter bufferedWriter = new BufferedWriter(new FileWriter(txt, true))) {
             bufferedWriter.write(getTitle() + " ");
             bufferedWriter.write(getDate() + " ");
             bufferedWriter.write(getSum() + " ");
             bufferedWriter.newLine();
+        } catch (IOException e) {
+            throw new IOException("не удалось записать файл");
         }
     }
 }
