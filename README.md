@@ -1,3 +1,4 @@
+![GitHub top language](https://img.shields.io/github/languages/top/NikitaPlatonov/Course-Work-2)
 # Расчет статистики затрат
 
 ## Описание программы:
