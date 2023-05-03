@@ -33,7 +33,7 @@ public class Main {
                 Counting counting = new Counting();
                 try (Socket socket = serverSocket.accept(); BufferedReader in = new BufferedReader(new InputStreamReader(socket.getInputStream())); PrintWriter out = new PrintWriter(socket.getOutputStream())) {
                     System.out.println("Подключился клиент с таким портом:" + socket.getPort());
-                    if (!fileIsEmpty(saveTxt)) {
+                    if (saveTxt.exists() && saveTxt.canRead() && !fileIsEmpty(saveTxt)) {
                         purchaseList = Purchase.loadFromTxt(saveTxt);
                         for (Purchase purchase : purchaseList) {
                             counting.setCategories(categories.getOrDefault(purchase.getTitle(), "другое"), purchase.getSum());
@@ -62,7 +62,6 @@ public class Main {
             e.printStackTrace();
         }
     }
-
     public static boolean fileIsEmpty(File file) throws IOException {
         try (BufferedReader bufferedReader = new BufferedReader(new FileReader(file))) {
             return bufferedReader.readLine() == null;
