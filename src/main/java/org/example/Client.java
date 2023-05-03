@@ -11,8 +11,12 @@ public class Client {
     public static void main(String[] args) throws Exception {
         try(Socket socket = new Socket(host, port); PrintWriter out = new PrintWriter(socket.getOutputStream(), true);
             BufferedReader in = new BufferedReader(new InputStreamReader(socket.getInputStream()))) {
-            out.println("[{" + "\"title\": " + "\"булка\", "+ "\"date\": " + "\"2022.02.08\", " + "\"sum\": " + "200" + "}, {" + "\"title\": " + "\"молоко\", "+ "\"date\": " + "\"2022.02.09\", " + "\"sum\": " + "150" + "}]");
+            out.println("[{" + "\"title\": " + "\"танки\", "+ "\"date\": " + "\"2022_02_08\", " + "\"sum\": " + "10000" + "}, {" + "\"title\": " + "\"молоко\", "+ "\"date\": " + "\"2022_02_09\", " + "\"sum\": " + "150" + "}]");
             out.flush();
+            String serverMessage = in.readLine();
+            String answer = in.readLine();
+            System.out.println(serverMessage);
+            System.out.println(answer);
         }
     }
 }
