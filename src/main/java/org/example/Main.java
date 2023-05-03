@@ -14,18 +14,14 @@ import java.util.Scanner;
 public class Main {
     public static File saveTxt = new File("saveTxt");
 
+    public static File categoriesFile = new File("categories.tsv");
+
+    public static Map<String, String> categories = new HashMap<>();
+
     public static void main(String[] args) throws IOException {
         // TODO Считывание категорий
-        Map<String, String> categories = new HashMap<>();
-        try (Scanner scanner = new Scanner(new File("categories.tsv"))) {
-            while (scanner.hasNextLine()) {
-                String line = scanner.nextLine();
-                String[] parts = line.split("\\P{L}+");
-                categories.put(parts[0], parts[1]);
-            }
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
-        }
+        readTsvFile(categoriesFile);
+        //TODO запуск сервера
         try (ServerSocket serverSocket = new ServerSocket(8989)) {
             System.out.println("Сервер запущен");
             while (true) {
@@ -33,6 +29,7 @@ public class Main {
                 Counting counting = new Counting();
                 try (Socket socket = serverSocket.accept(); BufferedReader in = new BufferedReader(new InputStreamReader(socket.getInputStream())); PrintWriter out = new PrintWriter(socket.getOutputStream())) {
                     System.out.println("Подключился клиент с таким портом:" + socket.getPort());
+                    //TODO проверка наличия файла с которого нужно делать восстановление
                     if (saveTxt.exists() && saveTxt.canRead() && !fileIsEmpty(saveTxt)) {
                         purchaseList = Purchase.loadFromTxt(saveTxt);
                         for (Purchase purchase : purchaseList) {
@@ -42,15 +39,15 @@ public class Main {
                     //TODO Подключается клиент с запросом
                     out.println("Жду твой запрос в json-формате");
                     String body = in.readLine();
-                    //TODO 1) Узнал категорию товара
+                    //TODO конвертировал JSON в Java-объект
                     ObjectMapper objectMapper = new ObjectMapper();
                     objectMapper.findAndRegisterModules();
                     purchaseList = objectMapper.readValue(body, new TypeReference<>() {
                     });
                     for (Purchase purchase : purchaseList) {
-                        //TODO Заношу инф о покупку в txt-файл
+                        //TODO Заношу инф о покупке в txt-файл
                         purchase.saveToTxt(saveTxt);
-                        //TODO 2) Занес ее в спец класс расчета
+                        //TODO Занес ее в спец класс расчета
                         counting.setCategories(categories.getOrDefault(purchase.getTitle(), "другое"), purchase.getSum());
                     }
                     //TODO Возвращаю json с максимально затратной категорией
@@ -65,6 +62,17 @@ public class Main {
     public static boolean fileIsEmpty(File file) throws IOException {
         try (BufferedReader bufferedReader = new BufferedReader(new FileReader(file))) {
             return bufferedReader.readLine() == null;
+        }
+    }
+    public static void readTsvFile(File file) {
+        try (Scanner scanner = new Scanner(new File("categories.tsv"))) {
+            while (scanner.hasNextLine()) {
+                String line = scanner.nextLine();
+                String[] parts = line.split("\\P{L}+");
+                categories.put(parts[0], parts[1]);
+            }
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
         }
     }
 }

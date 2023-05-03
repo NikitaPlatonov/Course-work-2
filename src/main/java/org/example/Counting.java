@@ -5,6 +5,7 @@ import java.util.Map;
 
 public class Counting {
     private final Map<String, Integer> categories = new HashMap<>();
+
     {
         categories.put("другое", 0);
     }

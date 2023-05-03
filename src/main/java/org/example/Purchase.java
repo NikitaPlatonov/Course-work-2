@@ -23,6 +23,16 @@ public class Purchase {
         this.date = date;
         this.sum = sum;
     }
+    public void saveToTxt(File txt) throws IOException {
+        try (BufferedWriter bufferedWriter = new BufferedWriter(new FileWriter(txt, true))) {
+            bufferedWriter.write(getTitle() + " ");
+            bufferedWriter.write(getDate() + " ");
+            bufferedWriter.write(getSum() + " ");
+            bufferedWriter.newLine();
+        } catch (IOException e) {
+            throw new IOException("не удалось записать файл");
+        }
+    }
 
     public static List<Purchase> loadFromTxt(File txt) throws IOException {
         List<Purchase> purchaseList = new ArrayList<>();
@@ -51,16 +61,6 @@ public class Purchase {
         return sum;
     }
 
-    public void saveToTxt(File txt) throws IOException {
-        try (BufferedWriter bufferedWriter = new BufferedWriter(new FileWriter(txt, true))) {
-            bufferedWriter.write(getTitle() + " ");
-            bufferedWriter.write(getDate() + " ");
-            bufferedWriter.write(getSum() + " ");
-            bufferedWriter.newLine();
-        } catch (IOException e) {
-            throw new IOException("не удалось записать файл");
-        }
-    }
     @Override
     public String toString() {
         return "{ " + "товар: " + getTitle() + " " + "дата покупки: " + getDate() + " " + "сумма: " + getSum() + " }";
