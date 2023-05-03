@@ -12,7 +12,7 @@ import java.util.Map;
 import java.util.Scanner;
 
 public class Main {
-    public static File saveTxt = new File("saveTxt");
+    public static File saveTxt = new File("C:\\Users\\User\\Desktop\\Мои траты.txt");
 
     public static File categoriesFile = new File("categories.tsv");
 
