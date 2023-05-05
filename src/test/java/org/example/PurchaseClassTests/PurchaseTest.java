@@ -17,7 +17,7 @@ class PurchaseTest {
     File fileLoad = new File("./src\\test\\java\\org\\example\\PurchaseClassTests\\loadFileTest.txt");
 
     @Test
-        //TODO Тест проверяет метод saveToTxt на то, запишет ли он информацию в файл формата-txt
+        //TODO Тест проверяет метод  на то, запишет ли он информацию в файл формата-txt
     void saveToTxt() throws IOException {
         String expected = "";
         String readFromFile = "";
@@ -36,7 +36,7 @@ class PurchaseTest {
     }
 
     @Test
-        //TODO тест проверяет метод считывания с saveTxtText.txt файла в Java-объект
+        //TODO тест проверяет метод считывания с loadFileTest файла в Java-объект
     void loadFromTxt() throws IOException {
         List<Purchase> purchaseList = new ArrayList<>();
         String expected = "{ " + "товар: " + "чипсы" + " " + "дата покупки: " + "2023-05-05" + " " + "сумма: " + "200" + " }";

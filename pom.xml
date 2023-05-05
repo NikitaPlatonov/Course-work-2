@@ -17,6 +17,13 @@
                 </plugin>
             </plugins>
         </pluginManagement>
+            <sourceDirectory>src/main/java</sourceDirectory>
+            <resources>
+                <resource>
+                    <directory>src/main/resources</directory>
+                    <filtering>true</filtering>
+                </resource>
+            </resources>
     </build>
 
     <properties>
