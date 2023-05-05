@@ -12,7 +12,7 @@ import java.util.Map;
 import java.util.Scanner;
 
 public class Main {
-    public static File saveTxt = new File("C:\\Users\\User\\Desktop\\Мои траты.txt");
+    public static File saveTxt = new File("saveTxt");
 
     public static File categoriesFile = new File("categories.tsv");
 
@@ -60,9 +60,7 @@ public class Main {
         }
     }
     public static boolean fileIsEmpty(File file) throws IOException {
-        try (BufferedReader bufferedReader = new BufferedReader(new FileReader(file))) {
-            return bufferedReader.readLine() == null;
-        }
+        return file.length() == 3;
     }
     public static void readTsvFile(File file) {
         try (Scanner scanner = new Scanner(new File("categories.tsv"))) {
