@@ -28,6 +28,20 @@ class CountingTest {
         Assertions.assertEquals(expected, counting.maxCategories());
     }
     @Test
+    //TODO тут идет проверка на то, что категория, которая есть в categories.tsv успешно определится.
+    void setCategoriesCategoryFromTsvFile(){
+        counting.setCategories("тапки", 200);
+
+        String expected = "{"+
+                "\"maxCategory\""+":"+ "{"+""+
+                "\"category\""+":" + "\"" + "тапки" + "\""+""+
+                "\"sum\"" + ":" + "200" + "" +
+                "}"+""+
+                "}";
+
+        Assertions.assertEquals(expected, counting.maxCategories());
+    }
+    @Test
     //TODO здесь идет проверка на правильный расчет самой затратной категории.
     void maxCategories() {
         counting.setCategories("Бытовая техника", 10000);
