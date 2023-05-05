@@ -30,7 +30,7 @@ public class Main {
                 try (Socket socket = serverSocket.accept(); BufferedReader in = new BufferedReader(new InputStreamReader(socket.getInputStream())); PrintWriter out = new PrintWriter(socket.getOutputStream())) {
                     System.out.println("Подключился клиент с таким портом:" + socket.getPort());
                     //TODO проверка наличия файла с которого нужно делать восстановление
-                    if (saveTxt.exists() && saveTxt.canRead() && !fileIsEmpty(saveTxt)) {
+                    if (saveTxt.exists() && saveTxt.canRead() && !(saveTxt.length() == 0)) {
                         purchaseList = Purchase.loadFromTxt(saveTxt);
                         for (Purchase purchase : purchaseList) {
                             counting.setCategories(categories.getOrDefault(purchase.getTitle(), "другое"), purchase.getSum());
@@ -58,9 +58,6 @@ public class Main {
             System.out.println("Не могу стартовать сервер");
             e.printStackTrace();
         }
-    }
-    public static boolean fileIsEmpty(File file) throws IOException {
-        return file.length() == 3;
     }
     public static void readTsvFile(File file) {
         try (Scanner scanner = new Scanner(new File("categories.tsv"))) {

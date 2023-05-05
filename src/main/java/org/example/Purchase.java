@@ -3,10 +3,7 @@ package org.example;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
-import java.io.BufferedWriter;
-import java.io.File;
-import java.io.FileWriter;
-import java.io.IOException;
+import java.io.*;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
@@ -23,14 +20,18 @@ public class Purchase {
         this.date = date;
         this.sum = sum;
     }
-    public void saveToTxt(File txt) throws IOException {
+    public void saveToTxt(File txt) throws FileNotFoundException, IOException {
         try (BufferedWriter bufferedWriter = new BufferedWriter(new FileWriter(txt, true))) {
             bufferedWriter.write(getTitle() + " ");
             bufferedWriter.write(getDate() + " ");
             bufferedWriter.write(getSum() + " ");
             bufferedWriter.newLine();
+        } catch (FileNotFoundException e){
+            System.out.println("Файл не найден");
+            e.printStackTrace();
         } catch (IOException e) {
-            throw new IOException("не удалось записать файл");
+            System.out.println("Не удалось записать файл");
+            e.printStackTrace();
         }
     }
 
