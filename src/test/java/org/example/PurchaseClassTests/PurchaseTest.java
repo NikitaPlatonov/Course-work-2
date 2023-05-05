@@ -11,14 +11,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 class PurchaseTest {
-    List<Purchase> purchase;
-    File file;
-    @BeforeEach
-    void init(){
-        purchase = new ArrayList<>();
-        file = new File("./src\\test\\java\\org\\example\\PurchaseClassTests\\saveTxtText.txt");
-    }
-
+    File fileSave = new File("./src\\test\\java\\org\\example\\PurchaseClassTests\\saveTxtText.txt");
+    File fileLoad = new File("./src\\test\\java\\org\\example\\PurchaseClassTests\\loadFileTest.txt");
     @Test
     //TODO Тест проверяет метод saveToTxt на то, запишет ли он информацию в файл формата-txt (Предварительно очистить файл saveTxtText вручную).
     void saveToTxt() throws IOException {
@@ -26,9 +20,9 @@ class PurchaseTest {
         String readFromFile = "";
         //TODO запись
         Purchase product1 = new Purchase("чипсы", LocalDate.parse("2023-05-05"), 200);
-       product1.saveToTxt(file);
+       product1.saveToTxt(fileSave);
         //TODO проверка
-        try(BufferedReader bufferedReader = new BufferedReader(new FileReader(file))) {
+        try(BufferedReader bufferedReader = new BufferedReader(new FileReader(fileSave))) {
             expected = "чипсы 2023-05-05 200 ";
             readFromFile = bufferedReader.readLine();
         } catch (IOException e) {
@@ -39,17 +33,14 @@ class PurchaseTest {
     }
 
     @Test
-    //TODO тест проверяет метод считывания с saveTxtText.txt файла в Java-объект (Для того, чтобы тест корректно сработал нужно вызвать сначала тест saveToTxt())
-    void loadFromTxt() throws FileNotFoundException {
+    //TODO тест проверяет метод считывания с saveTxtText.txt файла в Java-объект (Для того, чтобы тест корректно сработал нужно вызвать сначала тест saveToTxt(), а потом и весь класс)
+    //TODO т.к запись в файл происходит после исполнения всего класса, поэтому метод loadFromTxt() не сможет сразу считать инф
+    void loadFromTxt() throws IOException {
         List<Purchase> purchaseList = new ArrayList<>();
         String expected = "{ " + "товар: " + "чипсы" + " " + "дата покупки: " + "2023-05-05" + " " + "сумма: " + "200" + " }";
         String readFromToFile = "";
-        try (BufferedReader bufferedReader = new BufferedReader(new FileReader(file))){
-            //TODO считывает в purchaseList
-            purchaseList = Purchase.loadFromTxt(file);
-        } catch (FileNotFoundException e) {
-            System.out.println("Файл не найден");
-            e.printStackTrace();
+        try {
+            purchaseList = Purchase.loadFromTxt(fileLoad);
         } catch (IOException e) {
             System.out.println("Не удалось считать файл");
             e.printStackTrace();
