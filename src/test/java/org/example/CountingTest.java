@@ -12,7 +12,23 @@ class CountingTest {
     void init() {
         counting = new Counting();
     }
+
     @Test
+    //TODO тут идет проверка на то, что категории, которых нет в categories.tsv определяются в категорию - другое.
+    void setCategoriesOther() {
+        counting.setCategories("Такого нет в categories.tsv", 5000);
+
+        String expected = "{"+
+                "\"maxCategory\""+":"+ "{"+""+
+                "\"category\""+":" + "\"" + "Такого нет в categories.tsv" + "\""+""+
+                "\"sum\"" + ":" + "5000" + "" +
+                "}"+""+
+                "}";
+
+        Assertions.assertEquals(expected, counting.maxCategories());
+    }
+    @Test
+    //TODO здесь идет проверка на правильный расчет самой затратной категории.
     void maxCategories() {
         counting.setCategories("Бытовая техника", 10000);
         counting.setCategories("Еда", 1783);
