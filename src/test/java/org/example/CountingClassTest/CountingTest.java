@@ -1,5 +1,6 @@
-package org.example;
+package org.example.CountingClassTest;
 
+import org.example.Counting;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
