@@ -1,5 +1,5 @@
 ![GitHub top language](https://img.shields.io/github/languages/top/NikitaPlatonov/Course-Work-2) ![GitHub repo file count](https://img.shields.io/github/directory-file-count/NikitaPlatonov/Course-Work-2)
-# Расчет статистики затрат
+# Менеджер личных финансов
 
 ## Описание программы:
 
